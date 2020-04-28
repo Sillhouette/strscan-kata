@@ -23,11 +23,14 @@ defmodule StrScan do
     scan_results = Regex.scan(regex, scanner.string)
 
     result = List.first(List.first(scan_results))
-    result_length = String.length(result)
 
-    new_string = String.slice(scanner.string, result_length..-1)
     if String.starts_with?(scanner.string, result) do
-      [result, %StrScan{string: new_string, pointer: scanner.pointer + result_length, eof: scanner.eof}]
+      result_length = String.length(result)
+      slice_range = result_length..-1
+      new_string = String.slice(scanner.string, slice_range)
+      new_pointer = scanner.pointer + result_length
+
+      [result, %StrScan{string: new_string, pointer: new_pointer, eof: scanner.eof}]
     else
       [nil, scanner]
     end
