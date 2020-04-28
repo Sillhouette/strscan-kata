@@ -1,0 +1,1 @@
+This is the elixir version of the StrScan Kata found here: https://github.com/JoshCheek/strscan-kata
