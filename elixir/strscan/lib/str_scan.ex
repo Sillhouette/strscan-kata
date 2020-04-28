@@ -1,14 +1,4 @@
 defmodule StrScan do
-  @moduledoc """
-  Documentation for `StrScan`.
-  """
-
-  @doc """
-  Hello world.
-
-  ## Examples
-
-  """
   def eof?(string) do
     string == ""
   end
