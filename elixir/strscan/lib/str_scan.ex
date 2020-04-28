@@ -9,30 +9,27 @@ defmodule StrScan do
   ## Examples
 
   """
-  defstruct [:string, pointer: 0, eof: 0]
-
-  def new(str) do
-    %StrScan{string: str, eof: String.length(str)}
+  def eof?(string) do
+    string == ""
   end
 
-  def eof?(scanner) do
-    scanner.pointer === scanner.eof
-  end
+  def scan(string, regex) do
+    scan_results = Regex.scan(regex, string)
 
-  def scan(scanner, regex) do
-    scan_results = Regex.scan(regex, scanner.string)
+    result = if scan_results == [] do
+      nil
+    else
+      List.first(List.first(scan_results))
+    end
 
-    result = List.first(List.first(scan_results))
-
-    if String.starts_with?(scanner.string, result) do
+    if String.starts_with?(string, result) do
       result_length = String.length(result)
       slice_range = result_length..-1
-      new_string = String.slice(scanner.string, slice_range)
-      new_pointer = scanner.pointer + result_length
+      new_string = String.slice(string, slice_range)
 
-      [result, %StrScan{string: new_string, pointer: new_pointer, eof: scanner.eof}]
+      [result, new_string]
     else
-      [nil, scanner]
+      [nil, string]
     end
   end
 end
