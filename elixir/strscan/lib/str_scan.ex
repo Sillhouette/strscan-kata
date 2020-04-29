@@ -6,11 +6,7 @@ defmodule StrScan do
   def scan(string, regex) do
     scan_results = Regex.scan(regex, string)
 
-    result = if scan_results == [] do
-      nil
-    else
-      List.first(List.first(scan_results))
-    end
+    result = if scan_results == [], do: nil, else: List.first(List.first(scan_results))
 
     if String.starts_with?(string, result) do
       result_length = String.length(result)
