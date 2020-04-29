@@ -1,0 +1,7 @@
+elixir/strscan/.elixir_ls
+elixir/strscan/.vscode
+elixir/strscan/_build
+java/strscan/bin
+java/strscan/.settings
+java/strscan/.classpath
+.DS_Store
