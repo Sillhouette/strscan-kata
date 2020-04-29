@@ -16,13 +16,15 @@ public class StrScanner {
     	String toBeMatched = getString();
     	Pattern p = Pattern.compile(regex);
     	Matcher m = p.matcher(toBeMatched);
+
+    	boolean matchFound = !!m.find();
     	
-    	    	
-    	if (m.find()) {
+    	if (matchFound) {
         	String match = m.group(0);
         	if (toBeMatched.startsWith(match)) {
         		int matchLength = match.length();
-        		setString(toBeMatched.substring(matchLength));
+        		String remainder = toBeMatched.substring(matchLength);
+        		setString(remainder);
         		return match;
         	}
     	}
