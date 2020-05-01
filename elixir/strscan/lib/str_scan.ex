@@ -5,17 +5,22 @@ defmodule StrScan do
 
   def scan(string, regex) do
     scan_results = Regex.scan(regex, string)
+    result = getRelevantResult(scan_results)
 
-    result = if scan_results == [], do: nil, else: List.first(List.first(scan_results))
+    if String.starts_with?(string, result),
+      do: [result, getNewString(string, result)],
+      else: [nil, string]
+  end
 
-    if String.starts_with?(string, result) do
-      result_length = String.length(result)
-      slice_range = result_length..-1
-      new_string = String.slice(string, slice_range)
+  defp getRelevantResult(results) do
+    if results == [],
+      do: nil,
+      else: List.first(List.first(results))
+  end
 
-      [result, new_string]
-    else
-      [nil, string]
-    end
+  defp getNewString(original, match) do
+    length = String.length(match)
+    range = length..-1
+    String.slice(original, range)
   end
 end
